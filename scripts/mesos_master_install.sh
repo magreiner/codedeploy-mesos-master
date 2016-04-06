@@ -23,15 +23,18 @@ echo manual | tee /etc/init/mesos-slave.override
 echo $LOCAL_IP_ADDRESS | tee /etc/mesos-master/ip
 echo zk://$LOCAL_IP_ADDRESS:2181/mesos | tee /etc/mesos/zk
 echo TestCluster | tee /etc/mesos-master/cluster
-echo $LOCAL_IP_ADDRESS | sudo tee /etc/mesos-master/hostname
+echo $LOCAL_IP_ADDRESS | tee /etc/mesos-master/hostname
 echo 1 | tee /etc/zookeeper/conf/myid
+
+# Force zookeeper to use ipv4 (netstat -ntplv | grep 2181)
+# echo 'JAVA_OPTS="-Djava.net.preferIPv4Stack=true"' > /etc/default/zookeeper
 
 # start services
 service zookeeper restart
 service mesos-master restart
 service marathon restart
 
-# cd /tmp
+curl -i -H 'Content-Type: application/json' -d @/tmp/basic.json localhost:8080/v2/groups
 # curl -X PUT http://localhost:8080/v2/groups -d @basic.json -H "Content-type: application/json"
 
 
