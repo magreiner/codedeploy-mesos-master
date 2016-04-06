@@ -1,0 +1,59 @@
+{
+    "id": "/urz/heibox",
+    "groups": [
+      {
+        "id": "/urz/heibox/service",
+        "dependencies": ["/urz/heibox/database"],
+        "apps": [
+          {
+            "id": "/urz/heibox/service/seafile",
+            "cmd": "while [ true ] ; do echo 'Hello Marathon' ; sleep 5 ; done",
+            "container": {
+                "type": "DOCKER",
+                "docker": {
+                     "image": "alpine"
+                }
+            },
+            "cpus": 0.25,
+            "mem": 100.0,
+            "constraints": [
+                ["hostname", "UNIQUE"]
+            ]
+          }
+        ]
+      },{
+        "id": "/urz/heibox/database",
+        "apps": [
+          {
+            "id": "/urz/heibox/database/mysql",
+            "container": {
+                "type": "DOCKER",
+                "docker": {
+                     "image": "mysql:5.7",
+                     "network": "BRIDGE",
+                     "portMappings": [
+                         { "containerPort": 3306, "hostPort": 0 }
+                     ],
+                     "parameters": [
+                         { "key": "env", "value": "MYSQL_ROOT_PASSWORD=my-secret-pw" }
+                     ]
+                },
+                "volumes": []
+            },
+            "healthChecks": [
+              {
+                "protocol": "COMMAND",
+                "command": { "value": "exit 0" },
+                "gracePeriodSeconds": 5,
+                "intervalSeconds": 10,
+                "timeoutSeconds": 10,
+                "maxConsecutiveFailures": 3
+              }
+            ],
+            "cpus": 0.25,
+            "mem": 100.0
+          }
+        ]
+      }
+    ]
+}

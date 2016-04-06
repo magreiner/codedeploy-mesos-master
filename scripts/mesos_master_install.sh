@@ -28,7 +28,8 @@ make env
 source bin/env-setup-dev
 dcos config set core.mesos_master_url http://localhost:5050
 
-curl -X POST http://localhost:8080/v2/apps -d @marathon.json -H "Content-type: application/json"
+cd /tmp
+curl -X POST http://localhost:8080/v2/apps -d @basic.json -H "Content-type: application/json"
 
 
 #MY_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
