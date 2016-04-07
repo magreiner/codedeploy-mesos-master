@@ -34,7 +34,15 @@ service zookeeper restart
 service mesos-master restart
 service marathon restart
 
-curl -i -H 'Content-Type: application/json' -d @/tmp/basic.json localhost:8080/v2/groups
+# TODO: Fix this and preload application:
+# [stderr]Warning: Couldn't read data from file "/tmp/basic.json", this makes an empty
+# [stderr]Warning: POST.
+# [stderr]  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+# [stderr]                                 Dload  Upload   Total   Spent    Left  Speed
+# [stderr]
+#   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) Failed to connect to localhost port 8080: Connection refused
+
+# curl -i -H 'Content-Type: application/json' -d @/tmp/basic.json localhost:8080/v2/groups
 # curl -X PUT http://localhost:8080/v2/groups -d @basic.json -H "Content-type: application/json"
 
 
