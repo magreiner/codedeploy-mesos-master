@@ -1,12 +1,12 @@
 {
-    "id": "/urz/heibox",
+    "id": "/",
     "groups": [
       {
-        "id": "/urz/heibox/service",
-        "dependencies": ["/urz/heibox/database"],
+        "id": "/service",
+        "dependencies": ["/database"],
         "apps": [
           {
-            "id": "/urz/heibox/service/seafile",
+            "id": "/service/seafile",
             "cmd": "while [ true ] ; do echo 'Hello Marathon' ; sleep 5 ; done",
             "container": {
                 "type": "DOCKER",
@@ -22,10 +22,10 @@
           }
         ]
       },{
-        "id": "/urz/heibox/database",
+        "id": "/database",
         "apps": [
           {
-            "id": "/urz/heibox/database/mysql",
+            "id": "/database/mysql",
             "container": {
                 "type": "DOCKER",
                 "docker": {
