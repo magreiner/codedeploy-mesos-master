@@ -42,8 +42,11 @@ service marathon restart
 # [stderr]
 #   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) Failed to connect to localhost port 8080: Connection refused
 
-# curl -i -H 'Content-Type: application/json' -d @/tmp/basic.json localhost:8080/v2/groups
 # curl -X PUT http://localhost:8080/v2/groups -d @basic.json -H "Content-type: application/json"
 
 
 #screen -dmS mesos-master bash -c  "/usr/sbin/mesos-master --ip=$LOCAL_IP_ADDRESS --work_dir=/var/lib/mesos"
+
+
+# Temporary for debuging
+apt-get install -y firefox
