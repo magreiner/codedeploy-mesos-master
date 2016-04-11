@@ -42,7 +42,7 @@ service marathon restart
 # [stderr]
 #   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (7) Failed to connect to localhost port 8080: Connection refused
 
-# curl -X PUT http://localhost:8080/v2/groups -d @basic.json -H "Content-type: application/json"
+# curl -X PUT http://localhost:8080/v2/groups -d @/tmp/basic.json -H "Content-type: application/json"
 
 
 #screen -dmS mesos-master bash -c  "/usr/sbin/mesos-master --ip=$LOCAL_IP_ADDRESS --work_dir=/var/lib/mesos"
