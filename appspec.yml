@@ -4,7 +4,7 @@ files:
   - source: /config/basic.json
     destination: /tmp/
 hooks:
-  BeforeInstall:
+  AfterInstall:
     - location: scripts/mesos_master_install.sh
       timeout: 300
       runas: root
