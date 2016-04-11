@@ -34,6 +34,9 @@ service zookeeper restart
 service mesos-master restart
 service marathon restart
 
+# wait for mesos-master to start
+sleep 5
+
 chown ubuntu:ubuntu /tmp/basic.json
 curl -X PUT http://localhost:8080/v2/groups -d @/tmp/basic.json -H "Content-type: application/json" &> /tmp/basic.log
 
