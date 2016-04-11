@@ -2,6 +2,30 @@
 
 LOCAL_IP_ADDRESS=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
 
+#
+# DOCKER
+#
+apt-get update
+apt-get --yes install apt-transport-https ca-certificates
+
+apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+
+echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" > /etc/apt/sources.list.d/docker.list
+
+apt-get update
+apt-get --yes install apparmor \
+                      linux-image-extra-$(uname -r)
+apt-get --yes install docker-engine
+
+usermod -aG docker ubuntu
+
+service docker start
+
+
+#
+# MESOS
+#
+
 # Add mesos repository
 apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF
 DISTRO=$(lsb_release -is | tr '[:upper:]' '[:lower:]')
@@ -33,6 +57,20 @@ echo 1 | tee /etc/zookeeper/conf/myid
 service zookeeper restart
 service mesos-master restart
 service marathon restart
+
+# start internal haproxy
+docker kill haproxy-internal &>/dev/null
+docker run --name haproxy-internal --privileged -d -e PORTS=1000 --net=host mesosphere/marathon-lb sse -m http://localhost:8080 --group "*"
+
+# Access Container:
+# docker exec -t -i c1bc6f04b465 /bin/bash
+
+# Get some stats:
+# apt-get update
+# apt-get --yes install hatop vim-tiny
+# export TERM=vt100
+# hatop -s /var/run/haproxy/socket
+
 
 # wait for mesos-master to start
 sleep 20
