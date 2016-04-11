@@ -60,6 +60,7 @@ service marathon restart
 
 # start internal haproxy
 docker kill haproxy-internal &>/dev/null
+docker rm haproxy-internal &>/dev/null
 docker run --name haproxy-internal --privileged -d -e PORTS=1000 --net=host mesosphere/marathon-lb sse -m http://localhost:8080 --group "*"
 
 # Access Container:
