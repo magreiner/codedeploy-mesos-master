@@ -22,6 +22,11 @@
             "servicePort": 80,
             "protocol": "tcp"
           },{
+            "containerPort": 443,
+            "hostPort": 0,
+            "servicePort": 443,
+            "protocol": "tcp"
+          },{
             "containerPort": 8082,
             "hostPort": 0,
             "servicePort": 8082,
@@ -43,6 +48,13 @@
       },{
         "protocol": "TCP",
         "portIndex": 1,
+        "gracePeriodSeconds": 60,
+        "intervalSeconds": 10,
+        "timeoutSeconds": 20,
+        "maxConsecutiveFailures": 3
+      },{
+        "protocol": "TCP",
+        "portIndex": 2,
         "gracePeriodSeconds": 60,
         "intervalSeconds": 10,
         "timeoutSeconds": 20,
