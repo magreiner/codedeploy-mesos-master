@@ -3,6 +3,8 @@ os: linux
 files:
   - source: /config/basic.json
     destination: /tmp/
+  - source: /config/prometheus.yml
+    destination: /tmp/
 hooks:
   AfterInstall:
     - location: scripts/mesos_master_install.sh
