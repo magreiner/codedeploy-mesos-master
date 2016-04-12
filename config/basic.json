@@ -33,7 +33,7 @@
         }
       },
       "healthChecks": [{
-        "path": "/accounts/login/?next=/",
+        "path": "/",
         "protocol": "HTTP",
         "portIndex": 0,
         "gracePeriodSeconds": 60,

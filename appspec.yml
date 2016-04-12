@@ -5,6 +5,13 @@ files:
     destination: /tmp/
   - source: /config/prometheus.yml
     destination: /tmp/
+  - source: /scripts/debug.sh
+    destination: /home/ubuntu/
+permissions:
+  - object: /home/ubuntu/debug.sh
+    owner: ubuntu
+    group: users
+    mode: 744
 hooks:
   AfterInstall:
     - location: scripts/mesos_master_install.sh

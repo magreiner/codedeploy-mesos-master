@@ -83,7 +83,3 @@ chown ubuntu:ubuntu /tmp/basic.json
 curl -X PUT http://localhost:8080/v2/groups -d @/tmp/basic.json -H "Content-type: application/json" &> /tmp/basic.log
 
 #screen -dmS mesos-master bash -c  "/usr/sbin/mesos-master --ip=$LOCAL_IP_ADDRESS --work_dir=/var/lib/mesos"
-
-
-# Temporary for debuging
-apt-get install -y firefox
