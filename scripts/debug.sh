@@ -9,8 +9,9 @@ git clone git@github.com:magreiner/codedeploy-mesos.git
 git clone git@github.com:magreiner/codedeploy-mesos-master.git
 git clone git@bitbucket.org:m_greiner/docbox.git
 
-# install debug tools
-apt-get install -yq firefox chromium-browser flashplugin-installer
+ln -s git/docbox/seafile/
 
+# install debug tools
+sudo apt-get install -yq firefox chromium-browser flashplugin-installer
 
 echo "Complete"

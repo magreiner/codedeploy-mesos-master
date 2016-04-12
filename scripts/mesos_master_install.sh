@@ -64,7 +64,9 @@ docker rm haproxy-internal &>/dev/null
 docker run --name haproxy-internal --privileged -d -e PORTS=1000 --net=host mesosphere/marathon-lb sse -m http://localhost:8080 --group "*"
 
 # start prometheus
-docker run -d -p 10000:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+docker kill prometheus &>/dev/null
+docker rm prometheus &>/dev/null
+docker run --name prometheus -d -p 10000:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
 
 # Access Container:
 # docker exec -t -i c1bc6f04b465 /bin/bash
@@ -79,7 +81,6 @@ docker run -d -p 10000:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.ym
 # wait for mesos-master to start
 sleep 20
 
-chown ubuntu:ubuntu /tmp/basic.json
 curl -X PUT http://localhost:8080/v2/groups -d @/tmp/basic.json -H "Content-type: application/json" &> /tmp/basic.log
 
 #screen -dmS mesos-master bash -c  "/usr/sbin/mesos-master --ip=$LOCAL_IP_ADDRESS --work_dir=/var/lib/mesos"

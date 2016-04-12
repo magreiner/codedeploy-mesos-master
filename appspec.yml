@@ -8,9 +8,17 @@ files:
   - source: /scripts/debug.sh
     destination: /home/ubuntu/
 permissions:
-  - object: /home/ubuntu/debug.sh
+  - object: /tmp/basic.json
     owner: ubuntu
     group: users
+    mode: 644
+  - object: /tmp/prometheus.yml
+    owner: ubuntu
+    group: users
+    mode: 644
+  - object: /home/ubuntu/debug.sh
+    owner: ubuntu
+    group: ubuntu
     mode: 744
 hooks:
   AfterInstall:
