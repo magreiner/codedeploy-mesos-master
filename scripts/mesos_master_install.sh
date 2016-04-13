@@ -58,15 +58,10 @@ service zookeeper restart
 service mesos-master restart
 service marathon restart
 
-# start internal haproxy
-docker kill haproxy-internal &>/dev/null
-docker rm haproxy-internal &>/dev/null
-docker run --name haproxy-internal --privileged -d -e PORTS=1000 --net=host mesosphere/marathon-lb sse -m http://localhost:8080 --group "*"
-
 # start prometheus
 docker kill prometheus &>/dev/null
 docker rm prometheus &>/dev/null
-docker run --name prometheus -d -p 10000:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+docker run --name prometheus -d -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
 
 # Access Container:
 # docker exec -t -i c1bc6f04b465 /bin/bash
