@@ -37,7 +37,8 @@ chmod +x /usr/bin/consul
 
 # su -s /bin/bash "consul" -c "/usr/bin/consul agent -config-dir /etc/consul.d/bootstrap"
 initctl reload-configuration
-start consul
+stop consul-server &>/dev/null
+start consul-server
 
 # Debug with:
 # consul agent -server \
