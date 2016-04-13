@@ -16,6 +16,7 @@ cat > /etc/consul.d/bootstrap/config.json << EOF
 {
     "bootstrap": true,
     "server": true,
+    "bind_addr": "$LOCAL_IP_ADDRESS",
     "datacenter": "MesosCluster",
     "data_dir": "/var/consul",
     "ui_dir": "/opt/consul",
@@ -34,9 +35,9 @@ unzip /tmp/consul_*_linux_amd64.zip -d /usr/bin/
 rm /tmp/consul_*_linux_amd64.zip
 chmod +x /usr/bin/consul
 
-su -s /bin/bash "consul" -c "/usr/bin/consul agent -config-dir /etc/consul.d/bootstrap"
-
-# start consul
+# su -s /bin/bash "consul" -c "/usr/bin/consul agent -config-dir /etc/consul.d/bootstrap"
+initctl reload-configuration
+start consul
 
 # Debug with:
 # consul agent -server \

@@ -61,7 +61,7 @@
         "maxConsecutiveFailures": 3
       }],
       "labels":{
-        "HAPROXY_GROUP":"external"
+        "HAPROXY_GROUP":"ext"
       }
     }]
   }]

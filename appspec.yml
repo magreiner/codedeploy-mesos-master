@@ -11,9 +11,15 @@ files:
     destination: /tmp/
   - source: /packages/consul-template_0.14.0_linux_amd64.zip
     destination: /tmp/
+  - source: /init/consul-server.conf
+    destination: /etc/init/
   - source: /scripts/debug.sh
     destination: /home/ubuntu/
 permissions:
+  - object: /etc/init/consul-server.conf
+    owner: root
+    group: root
+    mode: 644
   - object: /tmp/basic.json
     owner: ubuntu
     group: users
