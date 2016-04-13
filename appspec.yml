@@ -5,6 +5,12 @@ files:
     destination: /tmp/
   - source: /config/prometheus.yml
     destination: /tmp/
+  - source: /packages/consul_0.6.4_linux_amd64.zip
+    destination: /tmp/
+  - source: /packages/consul_0.6.4_web_ui.zip
+    destination: /tmp/
+  - source: /packages/consul-template_0.14.0_linux_amd64.zip
+    destination: /tmp/
   - source: /scripts/debug.sh
     destination: /home/ubuntu/
 permissions:
@@ -23,5 +29,8 @@ permissions:
 hooks:
   AfterInstall:
     - location: scripts/mesos_master_install.sh
+      timeout: 300
+      runas: root
+    - location: scripts/consul_server_install.sh
       timeout: 300
       runas: root
