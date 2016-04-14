@@ -35,7 +35,7 @@ EOF
 ln -s /etc/consul.d/bootstrap/config.json /etc/consul.d/server/config.json
 
 # Extract consul binary
-unzip /tmp/consul_*_linux_amd64.zip -d /usr/bin/
+unzip -o /tmp/consul_*_linux_amd64.zip -d /usr/bin/
 rm /tmp/consul_*_linux_amd64.zip
 chmod +x /usr/bin/consul
 
@@ -56,14 +56,14 @@ start consul-server
 
 # Extract consul web_ui
 rm -rf /opt/consul/ &>/dev/null
-unzip /tmp/consul_*_web_ui.zip -d /opt/consul/
+unzip  -o /tmp/consul_*_web_ui.zip -d /opt/consul/
 rm /tmp/consul_*_web_ui.zip
 chown -R consul:consul /opt/consul
 
 # Extract and start consul-template
 # Source:
 # https://releases.hashicorp.com/consul-template/
-unzip /tmp/consul-template_*_linux_amd64.zip -d /usr/bin/
+unzip -o /tmp/consul-template_*_linux_amd64.zip -d /usr/bin/
 rm /tmp/consul-template_*_linux_amd64.zip
 chmod a+x /usr/bin/consul-template
 
