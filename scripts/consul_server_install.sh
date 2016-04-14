@@ -5,12 +5,14 @@ apt-get install -yq unzip
 pip install consulate
 
 # Create consul user
-adduser --quiet --disabled-password -shell /bin/bash --home /home/consul --gecos "User" consul
+adduser --quiet --disabled-password -shell /bin/bash --home /home/consul --gecos "User" consul &>/dev/null
 
+rm -rf /var/consul &>/dev/null
 mkdir /var/consul
 chown consul:consul /var/consul
 
 # Create config files
+rm -rf /etc/consul.d &>/dev/null
 mkdir -p /etc/consul.d/{bootstrap,server}
 cat > /etc/consul.d/bootstrap/config.json << EOF
 {
@@ -53,6 +55,7 @@ start consul-server
 #     -ui-dir /opt/consul-ui/
 
 # Extract consul web_ui
+rm -rf /opt/consul/ &>/dev/null
 unzip /tmp/consul_*_web_ui.zip -d /opt/consul/
 rm /tmp/consul_*_web_ui.zip
 chown -R consul:consul /opt/consul
