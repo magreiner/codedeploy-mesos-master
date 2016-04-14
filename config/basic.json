@@ -7,6 +7,7 @@
       "cpus": 0.25,
       "disk": 0,
       "mem": 1000.0,
+      "instances": 2,
       "constraints": [
           ["hostname", "UNIQUE"]
       ],

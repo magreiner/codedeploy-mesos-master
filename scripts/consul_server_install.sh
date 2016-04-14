@@ -1,8 +1,8 @@
 #!/bin/bash
 
-LOCAL_IP_ADDRESS=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
-
+# install requirements
 apt-get install -yq unzip
+pip install consulate
 
 # Create consul user
 adduser --quiet --disabled-password -shell /bin/bash --home /home/consul --gecos "User" consul
@@ -15,8 +15,10 @@ mkdir -p /etc/consul.d/{bootstrap,server}
 cat > /etc/consul.d/bootstrap/config.json << EOF
 {
     "bootstrap": true,
+    "node_name": "Consul-Bootstrap",
     "server": true,
     "bind_addr": "$LOCAL_IP_ADDRESS",
+    "client_addr": "0.0.0.0",
     "datacenter": "MesosCluster",
     "data_dir": "/var/consul",
     "ui_dir": "/opt/consul",
