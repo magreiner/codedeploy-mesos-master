@@ -40,6 +40,6 @@ hooks:
     - location: scripts/consul_server_install.sh
       timeout: 300
       runas: root
-    - location: scripts/consul_cluster_settings.sh
+    - location: scripts/cluster_settings.sh
       timeout: 300
       runas: root
