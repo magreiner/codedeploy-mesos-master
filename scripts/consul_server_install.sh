@@ -1,5 +1,7 @@
 #!/bin/bash
 
+LOCAL_IP_ADDRESS=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+
 # install requirements
 apt-get install -yq unzip
 pip install consulate
