@@ -12,6 +12,9 @@ ACCESS_SERVER_IP=$(aws ec2 describe-instances --region $REGION --filters "Name=t
 # install requirements
 apt-get install pwgen
 
+# wait for consil to get ready
+sleep 20
+
 # Mysql Settings
 # consulate kv ls
 consulate kv mkdir mysql
