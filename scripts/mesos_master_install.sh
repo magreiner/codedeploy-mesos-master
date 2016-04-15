@@ -72,10 +72,4 @@ docker run --name prometheus -d -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometh
 # export TERM=vt100
 # hatop -s /var/run/haproxy/socket
 
-
-# wait for mesos-master to start
-sleep 20
-
-curl -X PUT http://localhost:8080/v2/groups -d @/tmp/basic.json -H "Content-type: application/json" &> /tmp/basic.log
-
 #screen -dmS mesos-master bash -c  "/usr/sbin/mesos-master --ip=$LOCAL_IP_ADDRESS --work_dir=/var/lib/mesos"
