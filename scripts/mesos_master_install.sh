@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOCAL_IP_ADDRESS=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+LOCAL_IP_ADDRESS="$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)"
 
 #
 # DOCKER
@@ -28,8 +28,8 @@ service docker start
 
 # Add mesos repository
 apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF
-DISTRO=$(lsb_release -is | tr '[:upper:]' '[:lower:]')
-CODENAME=$(lsb_release -cs)
+DISTRO="$(lsb_release -is | tr '[:upper:]' '[:lower:]')"
+CODENAME="$(lsb_release -cs)"
 echo "deb http://repos.mesosphere.com/${DISTRO} ${CODENAME} main" > /etc/apt/sources.list.d/mesosphere.list
 
 # Add java repository
@@ -43,12 +43,12 @@ apt-get --yes install mesos marathon curl
 
 
 sudo service mesos-slave stop
-echo manual | tee /etc/init/mesos-slave.override
-echo $LOCAL_IP_ADDRESS | tee /etc/mesos-master/ip
-echo zk://$LOCAL_IP_ADDRESS:2181/mesos | tee /etc/mesos/zk
-echo TestCluster | tee /etc/mesos-master/cluster
-echo $LOCAL_IP_ADDRESS | tee /etc/mesos-master/hostname
-echo 1 | tee /etc/zookeeper/conf/myid
+echo "manual" | tee /etc/init/mesos-slave.override
+echo "$LOCAL_IP_ADDRESS" | tee /etc/mesos-master/ip
+echo "zk://$LOCAL_IP_ADDRESS:2181/mesos" | tee /etc/mesos/zk
+echo "TestCluster" | tee /etc/mesos-master/cluster
+echo "$LOCAL_IP_ADDRESS" | tee /etc/mesos-master/hostname
+echo "1" | tee /etc/zookeeper/conf/myid
 
 # Force zookeeper to use ipv4 (netstat -ntplv | grep 2181)
 # echo 'JAVA_OPTS="-Djava.net.preferIPv4Stack=true"' > /etc/default/zookeeper
@@ -57,19 +57,5 @@ echo 1 | tee /etc/zookeeper/conf/myid
 service zookeeper restart
 service mesos-master restart
 service marathon restart
-
-# start prometheus
-docker kill prometheus &>/dev/null
-docker rm prometheus &>/dev/null
-docker run --name prometheus -d -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
-
-# Access Container:
-# docker exec -t -i c1bc6f04b465 /bin/bash
-
-# Get some stats:
-# apt-get update
-# apt-get --yes install hatop vim-tiny
-# export TERM=vt100
-# hatop -s /var/run/haproxy/socket
 
 #screen -dmS mesos-master bash -c  "/usr/sbin/mesos-master --ip=$LOCAL_IP_ADDRESS --work_dir=/var/lib/mesos"

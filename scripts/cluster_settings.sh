@@ -29,3 +29,18 @@ consulate kv set seafile/SEAFILE_SERVER_IP "$ACCESS_SERVER_IP"
 
 # Start Services
 curl -X PUT http://localhost:8080/v2/groups -d @/tmp/basic.json -H "Content-type: application/json" &> /tmp/basic.log
+
+
+# Start Prometheus
+docker kill prometheus &>/dev/null
+docker rm prometheus &>/dev/null
+docker run --name prometheus -d -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+
+# Access Container:
+# docker exec -it prometheus /bin/sh
+
+# Get some stats:
+# apt-get update
+# apt-get --yes install hatop vim-tiny
+# export TERM=vt100
+# hatop -s /var/run/haproxy/socket
