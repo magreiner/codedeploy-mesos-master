@@ -11,6 +11,8 @@ files:
     destination: /tmp/
   - source: /packages/consul-template_0.14.0_linux_amd64.zip
     destination: /tmp/
+  - source: /packages/vault_0.5.2_linux_amd64.zip
+    destination: /tmp/
   - source: /init/consul-server.conf
     destination: /etc/init/
   - source: /scripts/debug.sh
@@ -34,10 +36,13 @@ permissions:
     mode: 744
 hooks:
   AfterInstall:
-    - location: scripts/mesos_master_install.sh
+    - location: scripts/mesos_master.sh
       timeout: 300
       runas: root
-    - location: scripts/consul_server_install.sh
+    - location: scripts/consul_server.sh
+      timeout: 300
+      runas: root
+    - location: scripts/vault.sh
       timeout: 300
       runas: root
     - location: scripts/cluster_settings.sh
