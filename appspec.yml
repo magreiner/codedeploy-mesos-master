@@ -15,6 +15,8 @@ files:
     destination: /tmp/
   - source: /init/consul-server.conf
     destination: /etc/init/
+  - source: /init/marathon-consul.conf
+    destination: /etc/init/
   - source: /scripts/debug.sh
     destination: /home/ubuntu/
 permissions:

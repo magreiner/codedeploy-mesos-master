@@ -73,3 +73,14 @@ chmod a+x /usr/bin/consul-template
 #     -consul $LOCAL_IP_ADDRESS:8500 \
 #     -template "$PATH_TO_TEMPLATE:$PATH_TO_CONFIG_FILE" \
 #     -retry 30s
+
+# Install marathon-consul
+# add public key to apt
+curl -s https://bintray.com/user/downloadSubjectPublicKey?username=allegro | sudo apt-key add -
+echo "deb http://dl.bintray.com/v1/content/allegro/deb /" | sudo tee /etc/apt/sources.list.d/marathon-consul.list
+apt-get -y update
+apt-get -qy install marathon-consul
+
+curl -X POST 'http://localhost:8080/v2/eventSubscriptions?callbackUrl=http://localhost:4000/events'
+stop marathon-consul &>/dev/null
+start marathon-consul

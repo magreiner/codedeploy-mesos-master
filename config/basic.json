@@ -62,7 +62,8 @@
         "maxConsecutiveFailures": 3
       }],
       "labels":{
-        "HAPROXY_GROUP":"ext"
+        "HAPROXY_GROUP":"ext",
+        "consul": "true"
       }
     }]
   }]

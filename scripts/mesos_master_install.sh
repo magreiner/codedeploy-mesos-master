@@ -30,6 +30,9 @@ echo "TestCluster" | tee /etc/mesos-master/cluster
 echo "$LOCAL_IP_ADDRESS" | tee /etc/mesos-master/hostname
 echo "1" | tee /etc/zookeeper/conf/myid
 
+mkdir -p /etc/marathon/conf/
+echo "http_callback" | tee /etc/marathon/conf/event_subscriber
+
 # Force zookeeper to use ipv4 (netstat -ntplv | grep 2181)
 # echo 'JAVA_OPTS="-Djava.net.preferIPv4Stack=true"' > /etc/default/zookeeper
 
