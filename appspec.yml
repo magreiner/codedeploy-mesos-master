@@ -36,7 +36,10 @@ permissions:
     mode: 744
 hooks:
   AfterInstall:
-    - location: scripts/mesos_master.sh
+    - location: scripts/docker_install.sh
+      timeout: 300
+      runas: root
+    - location: scripts/mesos_master_install.sh
       timeout: 300
       runas: root
     - location: scripts/consul_server.sh
