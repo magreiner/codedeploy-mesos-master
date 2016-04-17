@@ -46,14 +46,7 @@
         "intervalSeconds": 10,
         "timeoutSeconds": 20,
         "maxConsecutiveFailures": 3
-      },{
-        "protocol": "TCP",
-        "portIndex": 1,
-        "gracePeriodSeconds": 60,
-        "intervalSeconds": 10,
-        "timeoutSeconds": 20,
-        "maxConsecutiveFailures": 3
-      },{
+      }, {
         "protocol": "TCP",
         "portIndex": 2,
         "gracePeriodSeconds": 60,
@@ -66,5 +59,68 @@
         "consul": "true"
       }
     }]
-  }]
+  },{
+    "id": "/databases",
+    "apps": [{
+      "id": "/databases/mysql",
+      "cpus": 0.25,
+      "disk": 0,
+      "mem": 1000.0,
+      "instances": 2,
+      "constraints": [
+          ["hostname", "UNIQUE"]
+      ],
+      "container": {
+        "type": "DOCKER",
+        "volumes": [],
+        "docker": {
+          "image": "mgreiner/mysql",
+          "network": "BRIDGE",
+          "portMappings": [{
+            "containerPort": 3306,
+            "hostPort": 0,
+            "servicePort": 3306,
+            "protocol": "tcp"
+          },{
+            "containerPort": 4567,
+            "hostPort": 0,
+            "servicePort": 4567,
+            "protocol": "tcp"
+          },{
+            "containerPort": 4568,
+            "hostPort": 0,
+            "servicePort": 4568,
+            "protocol": "tcp"
+          },{
+            "containerPort": 4444,
+            "hostPort": 0,
+            "servicePort": 4444,
+            "protocol": "tcp"
+          },{
+            "containerPort": 8080,
+            "hostPort": 0,
+            "servicePort": 8080,
+            "protocol": "tcp"
+          }],
+          "privileged": false,
+          "parameters": [],
+          "forcePullImage": false
+        }
+      },
+      "healthChecks": [{
+        "path": "/",
+        "protocol": "HTTP",
+        "portIndex": 4,
+        "gracePeriodSeconds": 60,
+        "intervalSeconds": 10,
+        "timeoutSeconds": 20,
+        "maxConsecutiveFailures": 3
+      }],
+      "labels":{
+        "HAPROXY_GROUP":"internal",
+        "consul": "true"
+      }
+    }]
+  }
+]
 }

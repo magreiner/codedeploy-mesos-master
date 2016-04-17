@@ -19,6 +19,7 @@ sleep 20
 # consulate kv ls
 consulate kv mkdir mysql
 consulate kv set mysql/MYSQL_ROOT_PASS "$(pwgen)"
+consulate kv set mysql/MYSQL_SEAFILE_USER "seafile"
 consulate kv set mysql/MYSQL_SEAFILE_PASS "$(pwgen)"
 
 # Seafile Settings
