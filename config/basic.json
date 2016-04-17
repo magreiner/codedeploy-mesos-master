@@ -1,9 +1,8 @@
 {
   "id": "/",
   "groups": [{
-    "id": "/service",
     "apps": [{
-      "id": "/service/seafile",
+      "id": "/seafile",
       "cpus": 0.25,
       "disk": 0,
       "mem": 1000.0,
@@ -58,11 +57,8 @@
         "HAPROXY_GROUP":"ext",
         "consul": "true"
       }
-    }]
-  },{
-    "id": "/databases",
-    "apps": [{
-      "id": "/databases/mysql",
+    }, {
+      "id": "/mysql",
       "cpus": 0.25,
       "disk": 0,
       "mem": 1000.0,
@@ -121,6 +117,5 @@
         "consul": "true"
       }
     }]
-  }
-]
+  }]
 }
