@@ -1,6 +1,6 @@
 {
-  "id": "/",
   "groups": [{
+    "id": "/",
     "apps": [{
       "id": "/seafile",
       "cpus": 0.25,
