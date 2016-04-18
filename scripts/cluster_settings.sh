@@ -29,7 +29,7 @@ consulate kv set seafile/SEAFILE_ADMIN_PASS "$(pwgen)"
 consulate kv set seafile/SEAFILE_SERVER_IP "$ACCESS_SERVER_IP"
 
 # Start Services
-curl -X PUT http://localhost:8080/v2/groups -d @/tmp/basic.json -H "Content-type: application/json" &> /tmp/basic.log
+curl -X PUT http://localhost:8080/v2/apps -d @/tmp/basic.json -H "Content-type: application/json" &> /tmp/basic.log
 
 
 # Start Prometheus
