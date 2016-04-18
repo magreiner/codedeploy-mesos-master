@@ -153,7 +153,7 @@
     "consul": "true"
   }
 }, {
-    "cmd": "sudo  /usr/bin/mesos-dns/mesos-dns-v0.5.2-linux-amd64 -config=/etc/mesos-dns/config.json",
+    "cmd": "sudo  /usr/bin/mesos-dns-v0.5.2-linux-amd64 -config=/etc/mesos-dns/config.json",
     "cpus": 1.0,
     "mem": 1024,
     "id": "mesos-dns",
