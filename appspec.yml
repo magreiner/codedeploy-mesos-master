@@ -48,6 +48,9 @@ hooks:
     - location: scripts/vault.sh
       timeout: 300
       runas: root
+    - location: scripts/dns-services.sh
+      timeout: 300
+      runas: root
     - location: scripts/cluster_settings.sh
       timeout: 300
       runas: root
