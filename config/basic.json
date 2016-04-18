@@ -1,121 +1,116 @@
-{
-  "groups": [{
-    "id": "/",
-    "apps": [{
-      "id": "/seafile",
-      "cpus": 0.25,
-      "disk": 0,
-      "mem": 1000.0,
-      "instances": 2,
-      "constraints": [
-          ["hostname", "UNIQUE"]
-      ],
-      "container": {
-        "type": "DOCKER",
-        "volumes": [],
-        "docker": {
-          "image": "mgreiner/seafile",
-          "network": "BRIDGE",
-          "portMappings": [{
-            "containerPort": 80,
-            "hostPort": 0,
-            "servicePort": 80,
-            "protocol": "tcp"
-          },{
-            "containerPort": 443,
-            "hostPort": 0,
-            "servicePort": 443,
-            "protocol": "tcp"
-          },{
-            "containerPort": 8082,
-            "hostPort": 0,
-            "servicePort": 8082,
-            "protocol": "tcp"
-          }],
-          "privileged": false,
-          "parameters": [],
-          "forcePullImage": false
-        }
-      },
-      "healthChecks": [{
-        "path": "/",
-        "protocol": "HTTP",
-        "portIndex": 0,
-        "gracePeriodSeconds": 60,
-        "intervalSeconds": 10,
-        "timeoutSeconds": 20,
-        "maxConsecutiveFailures": 3
-      }, {
-        "protocol": "TCP",
-        "portIndex": 2,
-        "gracePeriodSeconds": 60,
-        "intervalSeconds": 10,
-        "timeoutSeconds": 20,
-        "maxConsecutiveFailures": 3
+[{
+  "id": "/seafile",
+  "cpus": 0.25,
+  "disk": 0,
+  "mem": 1000.0,
+  "instances": 2,
+  "constraints": [
+      ["hostname", "UNIQUE"]
+  ],
+  "container": {
+    "type": "DOCKER",
+    "volumes": [],
+    "docker": {
+      "image": "mgreiner/seafile",
+      "network": "BRIDGE",
+      "portMappings": [{
+        "containerPort": 80,
+        "hostPort": 0,
+        "servicePort": 80,
+        "protocol": "tcp"
+      },{
+        "containerPort": 443,
+        "hostPort": 0,
+        "servicePort": 443,
+        "protocol": "tcp"
+      },{
+        "containerPort": 8082,
+        "hostPort": 0,
+        "servicePort": 8082,
+        "protocol": "tcp"
       }],
-      "labels":{
-        "HAPROXY_GROUP":"ext",
-        "consul": "true"
-      }
-    }, {
-      "id": "/mysql",
-      "cpus": 0.25,
-      "disk": 0,
-      "mem": 1000.0,
-      "instances": 2,
-      "constraints": [
-          ["hostname", "UNIQUE"]
-      ],
-      "container": {
-        "type": "DOCKER",
-        "volumes": [],
-        "docker": {
-          "image": "mgreiner/mysql",
-          "network": "BRIDGE",
-          "portMappings": [{
-            "containerPort": 3306,
-            "hostPort": 0,
-            "servicePort": 3306,
-            "protocol": "tcp"
-          },{
-            "containerPort": 4567,
-            "hostPort": 0,
-            "servicePort": 4567,
-            "protocol": "tcp"
-          },{
-            "containerPort": 4568,
-            "hostPort": 0,
-            "servicePort": 4568,
-            "protocol": "tcp"
-          },{
-            "containerPort": 4444,
-            "hostPort": 0,
-            "servicePort": 4444,
-            "protocol": "tcp"
-          },{
-            "containerPort": 8080,
-            "hostPort": 0,
-            "servicePort": 8080,
-            "protocol": "tcp"
-          }],
-          "privileged": false,
-          "parameters": [],
-          "forcePullImage": false
-        }
-      },
-      "healthChecks": [{
-        "path": "/",
-        "protocol": "HTTP",
-        "portIndex": 4,
-        "gracePeriodSeconds": 60,
-        "intervalSeconds": 10,
-        "timeoutSeconds": 20,
-        "maxConsecutiveFailures": 3
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": false
+    }
+  },
+  "healthChecks": [{
+    "path": "/",
+    "protocol": "HTTP",
+    "portIndex": 0,
+    "gracePeriodSeconds": 60,
+    "intervalSeconds": 10,
+    "timeoutSeconds": 20,
+    "maxConsecutiveFailures": 3
+  }, {
+    "protocol": "TCP",
+    "portIndex": 2,
+    "gracePeriodSeconds": 60,
+    "intervalSeconds": 10,
+    "timeoutSeconds": 20,
+    "maxConsecutiveFailures": 3
+  }],
+  "labels":{
+    "HAPROXY_GROUP":"ext",
+    "consul": "true"
+  }
+}, {
+  "id": "/mysql",
+  "cpus": 0.25,
+  "disk": 0,
+  "mem": 1000.0,
+  "instances": 2,
+  "constraints": [
+      ["hostname", "UNIQUE"]
+  ],
+  "container": {
+    "type": "DOCKER",
+    "volumes": [],
+    "docker": {
+      "image": "mgreiner/mysql",
+      "network": "BRIDGE",
+      "portMappings": [{
+        "containerPort": 3306,
+        "hostPort": 0,
+        "servicePort": 3306,
+        "protocol": "tcp"
+      },{
+        "containerPort": 4567,
+        "hostPort": 0,
+        "servicePort": 4567,
+        "protocol": "tcp"
+      },{
+        "containerPort": 4568,
+        "hostPort": 0,
+        "servicePort": 4568,
+        "protocol": "tcp"
+      },{
+        "containerPort": 4444,
+        "hostPort": 0,
+        "servicePort": 4444,
+        "protocol": "tcp"
+      },{
+        "containerPort": 8080,
+        "hostPort": 0,
+        "servicePort": 8080,
+        "protocol": "tcp"
       }],
-      "labels":{
-        "HAPROXY_GROUP":"internal",
-        "consul": "true"
-      }
-    }]
-  }]
-}
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": false
+    }
+  },
+  "healthChecks": [{
+    "path": "/",
+    "protocol": "HTTP",
+    "portIndex": 4,
+    "gracePeriodSeconds": 60,
+    "intervalSeconds": 10,
+    "timeoutSeconds": 20,
+    "maxConsecutiveFailures": 3
+  }],
+  "labels":{
+    "HAPROXY_GROUP":"internal",
+    "consul": "true"
+  }
+}]
