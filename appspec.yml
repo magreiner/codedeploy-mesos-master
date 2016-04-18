@@ -5,23 +5,15 @@ files:
     destination: /tmp/
   - source: /config/prometheus.yml
     destination: /tmp/
-  - source: /packages/consul_0.6.4_linux_amd64.zip
-    destination: /tmp/
-  - source: /packages/consul_0.6.4_web_ui.zip
-    destination: /tmp/
-  - source: /packages/consul-template_0.14.0_linux_amd64.zip
-    destination: /tmp/
   - source: /packages/vault_0.5.2_linux_amd64.zip
     destination: /tmp/
   - source: /init/consul-server.conf
     destination: /etc/init/
   - source: /scripts/debug.sh
     destination: /home/ubuntu/
+  - source: /packages/mesos-dns-v0.5.2-linux-amd64
+    destination: /usr/bin/
 permissions:
-  - object: /etc/init/consul-server.conf
-    owner: root
-    group: root
-    mode: 644
   - object: /tmp/basic.json
     owner: ubuntu
     group: users
@@ -34,15 +26,16 @@ permissions:
     owner: ubuntu
     group: ubuntu
     mode: 744
+  - object: /usr/bin/mesos-dns-v0.5.2-linux-amd64
+    owner: root
+    group: root
+    mode: 755
 hooks:
   AfterInstall:
     - location: scripts/docker_install.sh
       timeout: 300
       runas: root
     - location: scripts/mesos_master_install.sh
-      timeout: 300
-      runas: root
-    - location: scripts/consul_server.sh
       timeout: 300
       runas: root
     - location: scripts/vault.sh

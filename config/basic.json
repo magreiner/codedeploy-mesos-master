@@ -3,7 +3,7 @@
   "cpus": 0.25,
   "disk": 0,
   "mem": 1000.0,
-  "instances": 2,
+  "instances": 0,
   "constraints": [
       ["hostname", "UNIQUE"]
   ],
@@ -42,13 +42,6 @@
     "intervalSeconds": 10,
     "timeoutSeconds": 20,
     "maxConsecutiveFailures": 3
-  }, {
-    "protocol": "TCP",
-    "portIndex": 2,
-    "gracePeriodSeconds": 60,
-    "intervalSeconds": 10,
-    "timeoutSeconds": 20,
-    "maxConsecutiveFailures": 3
   }],
   "labels":{
     "HAPROXY_GROUP":"ext",
@@ -59,10 +52,11 @@
   "cpus": 0.25,
   "disk": 0,
   "mem": 1000.0,
-  "instances": 2,
+  "instances": 0,
   "constraints": [
       ["hostname", "UNIQUE"]
   ],
+  "args": ["MASTER"],
   "container": {
     "type": "DOCKER",
     "volumes": [],
@@ -101,9 +95,8 @@
     }
   },
   "healthChecks": [{
-    "path": "/",
-    "protocol": "HTTP",
-    "portIndex": 4,
+    "protocol": "TCP",
+    "portIndex": 0,
     "gracePeriodSeconds": 60,
     "intervalSeconds": 10,
     "timeoutSeconds": 20,
@@ -113,4 +106,56 @@
     "HAPROXY_GROUP":"internal",
     "consul": "true"
   }
+},{
+  "id": "/docker-registry",
+  "instances": 0,
+  "cpus": 0.5,
+  "mem": 1024.0,
+  "disk": 128,
+  "container": {
+    "docker": {
+      "type": "DOCKER",
+      "image": "registry:latest",
+      "network": "BRIDGE",
+      "parameters": [],
+      "portMappings": [
+        {
+          "containerPort": 5000,
+          "hostPort": 0,
+          "protocol": "tcp",
+          "servicePort": 5000
+        }
+      ]
+    },
+    "volumes": [
+      {
+        "hostPath": "/opt/docker-images/",
+        "containerPath": "/storage",
+        "mode": "RW"
+      }
+    ]
+  },
+  "env": {
+    "SETTINGS_FLAVOR": "local",
+    "STORAGE_PATH": "/storage"
+  },
+  "ports": [0],
+  "healthChecks": [{
+    "protocol": "TCP",
+    "portIndex": 0,
+    "gracePeriodSeconds": 60,
+    "intervalSeconds": 10,
+    "timeoutSeconds": 20,
+    "maxConsecutiveFailures": 3
+  }],
+  "labels":{
+    "HAPROXY_GROUP":"internal",
+    "consul": "true"
+  }
+}, {
+    "cmd": "sudo  /usr/bin/mesos-dns/mesos-dns-v0.5.2-linux-amd64 -config=/etc/mesos-dns/config.json",
+    "cpus": 1.0,
+    "mem": 1024,
+    "id": "mesos-dns",
+    "instances": 0
 }]

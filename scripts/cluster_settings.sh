@@ -17,16 +17,16 @@ sleep 20
 
 # Mysql Settings
 # consulate kv ls
-consulate kv mkdir mysql
-consulate kv set mysql/MYSQL_ROOT_PASS "$(pwgen)"
-consulate kv set mysql/MYSQL_SEAFILE_USER "seafile"
-consulate kv set mysql/MYSQL_SEAFILE_PASS "$(pwgen)"
-
-# Seafile Settings
-consulate kv mkdir seafile
-consulate kv set seafile/SEAFILE_ADMIN_EMAIL "adm@adm.de"
-consulate kv set seafile/SEAFILE_ADMIN_PASS "$(pwgen)"
-consulate kv set seafile/SEAFILE_SERVER_IP "$ACCESS_SERVER_IP"
+# consulate kv mkdir mysql
+# consulate kv set mysql/MYSQL_ROOT_PASS "$(pwgen)"
+# consulate kv set mysql/MYSQL_SEAFILE_USER "seafile"
+# consulate kv set mysql/MYSQL_SEAFILE_PASS "$(pwgen)"
+#
+# # Seafile Settings
+# consulate kv mkdir seafile
+# consulate kv set seafile/SEAFILE_ADMIN_EMAIL "adm@adm.de"
+# consulate kv set seafile/SEAFILE_ADMIN_PASS "$(pwgen)"
+# consulate kv set seafile/SEAFILE_SERVER_IP "$ACCESS_SERVER_IP"
 
 # Start Services
 curl -X PUT http://localhost:8080/v2/apps -d @/tmp/basic.json -H "Content-type: application/json" &> /tmp/basic.log
