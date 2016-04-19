@@ -28,7 +28,7 @@ listener "tcp" {
 EOF
 
 # screen -X -S vault-server quit # error: prevents vaul to start again inside screen
-kill $(ps -eopid,cmd | grep -ve "grep" | grep "/usr/bin/vault server" | cut -d' ' -f2) &>/dev/null
+kill $(ps -eopid,cmd | grep -ve "grep" | grep "/usr/bin/vault server" | cut -d' ' -f1) &>/dev/null
 screen -dmS vault-server bash -c  "/usr/bin/vault server -config=/etc/vault/config.json"
 
 export VAULT_ADDR="http://$FIRST_MASTER_IP:8201"
