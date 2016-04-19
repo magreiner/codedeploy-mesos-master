@@ -31,7 +31,7 @@
       }],
       "privileged": false,
       "parameters": [],
-      "forcePullImage": false
+      "forcePullImage": true
     }
   },
   "healthChecks": [{
@@ -91,7 +91,7 @@
       }],
       "privileged": false,
       "parameters": [],
-      "forcePullImage": false
+      "forcePullImage": true
     }
   },
   "healthChecks": [{
