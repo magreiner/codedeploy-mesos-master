@@ -42,6 +42,6 @@ MYSQL_CONTAINER_NAME="$(docker ps | grep "mysql" | cut -d' ' -f1)"
 docker kill $MYSQL_CONTAINER_NAME &>/dev/null
 docker rm $MYSQL_CONTAINER_NAME &>/dev/null
 docker rmi mysql &>/dev/null
-docker build -t "mgreiner/mysql" "/tmp/docbox/mysql/"
+docker build -t "mysql" "/tmp/docbox/mysql/"
 docker tag "mysql" $FIRST_MASTER_IP:5000/mysql
 docker push $FIRST_MASTER_IP:5000/mysql
