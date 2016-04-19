@@ -9,6 +9,12 @@ git clone git@github.com:magreiner/codedeploy-mesos-access.git git/codedeploy-me
 git clone git@github.com:magreiner/codedeploy-mesos-master.git git/codedeploy-mesos-master
 git clone git@bitbucket.org:m_greiner/docbox.git git/docbox
 
+# copy secrets
+mkdir git/docbox/seafile/secrets/
+mkdir git/docbox/mysql/secrets/
+sudo cp /root/.vault-token git/docbox/seafile/secrets/
+sudo cp /root/.vault-token git/docbox/mysql/secrets/
+
 ln -s git/docbox/seafile/
 
 # install debug tools

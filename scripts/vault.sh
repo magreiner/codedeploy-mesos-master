@@ -21,8 +21,8 @@ listener "tcp" {
 }
 EOF
 
-
-screen -dmS mesos-agent bash -c  "/usr/bin/vault server -config=/etc/vault/config.json"
+screen -X -S vault-server kill &>/dev/null
+screen -dmS vault-server bash -c  "/usr/bin/vault server -config=/etc/vault/config.json"
 # screen -dmS mesos-agent bash -c  "/usr/bin/vault server -config=/etc/vault/config.json -dev"
 export VAULT_ADDR="http://$FIRST_MASTER_IP:8201"
 echo "export VAULT_ADDR=\"http://$FIRST_MASTER_IP:8201\"" >> /home/ubuntu/.bashrc

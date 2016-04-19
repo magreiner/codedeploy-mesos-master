@@ -19,7 +19,7 @@ sleep 20
 
 # Mysql Settings
 vault write secret/mysql/MYSQL_ROOT_PASS value="$(pwgen)"
-vault write secret/mysql/MYSQL_SEAFILE_USER value="$seafile"
+vault write secret/mysql/MYSQL_SEAFILE_USER value="seafile"
 vault write secret/mysql/MYSQL_SEAFILE_PASS value="$(pwgen)"
 
 # Seafile Settings
