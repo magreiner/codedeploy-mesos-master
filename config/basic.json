@@ -11,7 +11,7 @@
     "type": "DOCKER",
     "volumes": [],
     "docker": {
-      "image": "mgreiner/seafile",
+      "image": "MASTER/seafile",
       "network": "BRIDGE",
       "portMappings": [{
         "containerPort": 80,
@@ -61,7 +61,7 @@
     "type": "DOCKER",
     "volumes": [],
     "docker": {
-      "image": "mgreiner/mysql",
+      "image": "MASTER/mysql",
       "network": "BRIDGE",
       "portMappings": [{
         "containerPort": 3306,

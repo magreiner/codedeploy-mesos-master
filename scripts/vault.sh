@@ -22,14 +22,21 @@ listener "tcp" {
 EOF
 
 
-# screen -dmS mesos-agent bash -c  "/usr/bin/vault server -config=/etc/vault/config.json"
-screen -dmS mesos-agent bash -c  "/usr/bin/vault server -config=/etc/vault/config.json -dev"
-# export VAULT_ADDR='http://127.0.0.1:8200'
-# vault init &>/root/vault.keys
-#
-# chmod +x unseal.expect
-# vault unseal $(cat /root/vault.keys | grep "Key 1" | cut -d" " -f3)
-# vault unseal $(cat /root/vault.keys | grep "Key 2" | cut -d" " -f3)
-# vault unseal $(cat /root/vault.keys | grep "Key 3" | cut -d" " -f3)
-#
-echo "$(cat /root/vault.keys | grep "Root Token: " | cut -d" " -f3)" > .vtoken
+screen -dmS mesos-agent bash -c  "/usr/bin/vault server -config=/etc/vault/config.json"
+# screen -dmS mesos-agent bash -c  "/usr/bin/vault server -config=/etc/vault/config.json -dev"
+export VAULT_ADDR="http://$FIRST_MASTER_IP:8201"
+echo "export VAULT_ADDR=\"http://$FIRST_MASTER_IP:8201\"" >> /home/ubuntu/.bashrc
+echo "export VAULT_ADDR=\"http://$FIRST_MASTER_IP:8201\"" >> /root/.bashrc
+
+# initialize the vault
+vault init &>/root/vault.keys
+echo "$(cat /root/vault.keys | grep "Root Token: " | cut -d" " -f4)" > /root/.vault-token
+export VAULT_TOKEN="$(cat /root/.vault-token)"
+echo "export VAULT_TOKEN=\"$VAULT_TOKEN\"" >> /home/ubuntu/.bashrc
+echo "export VAULT_TOKEN=\"$VAULT_TOKEN\"" >> /root/.bashrc
+
+vault unseal $(cat /root/vault.keys | grep "Key 1" | cut -d" " -f3)
+vault unseal $(cat /root/vault.keys | grep "Key 2" | cut -d" " -f3)
+vault unseal $(cat /root/vault.keys | grep "Key 3" | cut -d" " -f3)
+
+curl -X GET -H "X-Vault-Token:$VAULT_TOKEN" http://192.168.10.89:8201/v1/sys/auth
