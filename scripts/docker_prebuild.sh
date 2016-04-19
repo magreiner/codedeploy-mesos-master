@@ -25,6 +25,9 @@ docker run -d -p 5000:5000 --restart=always --name registry \
 
 git clone https://bitbucket.org/m_greiner/docbox.git /tmp/docbox 2>/dev/null
 
+cp /root/.vault-token /tmp/docbox/seafile/secrets/
+cp /root/.vault-token /tmp/docbox/mysql/secrets/
+
 SEAFILE_CONTAINER_NAME="$(docker ps | grep "seafile" | cut -d' ' -f1)"
 docker kill $SEAFILE_CONTAINER_NAME &>/dev/null
 docker rm $SEAFILE_CONTAINER_NAME &>/dev/null
