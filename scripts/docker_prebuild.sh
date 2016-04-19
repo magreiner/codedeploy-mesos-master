@@ -25,6 +25,8 @@ docker run -d -p 5000:5000 --restart=always --name registry \
 
 git clone https://bitbucket.org/m_greiner/docbox.git /tmp/docbox 2>/dev/null
 
+mkdir /tmp/docbox/seafile/secrets/
+mkdir /tmp/docbox/mysql/secrets/
 cp /root/.vault-token /tmp/docbox/seafile/secrets/
 cp /root/.vault-token /tmp/docbox/mysql/secrets/
 
