@@ -36,6 +36,7 @@ echo "export VAULT_ADDR=\"http://$FIRST_MASTER_IP:8201\"" >> /home/ubuntu/.bashr
 echo "export VAULT_ADDR=\"http://$FIRST_MASTER_IP:8201\"" >> /root/.bashrc
 
 # initialize the vault
+sleep 2
 vault init &>/root/vault.keys
 echo "$(cat /root/vault.keys | grep "Root Token: " | cut -d" " -f4)" > /root/.vault-token
 export VAULT_TOKEN="$(cat /root/.vault-token)"
