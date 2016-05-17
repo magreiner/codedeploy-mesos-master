@@ -19,6 +19,8 @@ FIRST_MASTER_IP="$(echo "$MASTER_IPS" | head -n1)"
 ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
 rm -rf /tmp/docbox 2>/dev/null
 
+sudo docker kill registry > /dev/null 2>&1
+sudo docker rm registry > /dev/null 2>&1
 docker run -d -p 5000:5000 --restart=always --name registry \
       -v /opt/docker/registry:/var/lib/registry \
       registry:2
