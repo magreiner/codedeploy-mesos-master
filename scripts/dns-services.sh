@@ -59,6 +59,8 @@ nameserver 127.0.0.1
 search $SEARCH_ORIG
 EOF
 end script
+
 EOF2
 
 start mesos-dns
+true
