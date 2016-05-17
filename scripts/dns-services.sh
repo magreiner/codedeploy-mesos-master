@@ -5,10 +5,6 @@ LOCAL_IP_ADDRESS="$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)"
 mv /usr/bin/mesos-dns-v* /usr/bin/mesos-dns
 chmod +x /usr/bin/mesos-dns
 
-# ensure nameservers are correct
-service resolvconf restart
-sleep 1
-
 # Create configuration
 mkdir -p /etc/mesos-dns/
 cat > /etc/mesos-dns/config.json << EOF
@@ -36,7 +32,7 @@ cat > /etc/mesos-dns/config.json << EOF
 }
 EOF
 
-cat > /etc/init/mesos-dns.conf << EOF
+cat > /etc/init/mesos-dns.conf << EOF2
 description "mesos dns service"
 
 start on runlevel [2345]
@@ -44,15 +40,25 @@ stop on runlevel [!2345]
 
 respawn
 
-exec /usr/bin/mesos-dns -v 1 -config /etc/mesos-dns/config.json
-EOF
+pre-start script
+  # ensure nameservers are correct
+  service resolvconf restart
+  sleep 1
+end script
 
-start mesos-dns
+script
+  /usr/bin/mesos-dns -v 1 -config /etc/mesos-dns/config.json
+end script
 
-service resolvconf stop
+post-start script
+  service resolvconf stop
 
-SEARCH_ORIG="$(cat /etc/resolv.conf | grep search | cut -d' ' -f2)"
-cat > /etc/resolv.conf << EOF
+  SEARCH_ORIG="$(cat /etc/resolv.conf | grep search | cut -d' ' -f2)"
+  cat > /etc/resolv.conf << EOF
 nameserver 127.0.0.1
 search $SEARCH_ORIG
 EOF
+end script
+EOF2
+
+start mesos-dns
