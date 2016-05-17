@@ -47,4 +47,4 @@ vault unseal $(cat /root/vault.keys | grep "Key 1" | cut -d" " -f3)
 vault unseal $(cat /root/vault.keys | grep "Key 2" | cut -d" " -f3)
 vault unseal $(cat /root/vault.keys | grep "Key 3" | cut -d" " -f3)
 
-curl -X GET -H "X-Vault-Token:$VAULT_TOKEN" http://192.168.10.89:8201/v1/sys/auth
+# curl -X GET -H "X-Vault-Token:$VAULT_TOKEN" http://192.168.10.89:8201/v1/sys/auth
