@@ -22,26 +22,3 @@ rm -rf /tmp/docbox 2>/dev/null
 docker run -d -p 5000:5000 --restart=always --name registry \
       -v /opt/docker/registry:/var/lib/registry \
       registry:2
-
-git clone https://bitbucket.org/m_greiner/docbox.git /tmp/docbox 2>/dev/null
-
-mkdir /tmp/docbox/seafile/secrets/
-mkdir /tmp/docbox/mysql/secrets/
-cp /root/.vault-token /tmp/docbox/seafile/secrets/
-cp /root/.vault-token /tmp/docbox/mysql/secrets/
-
-SEAFILE_CONTAINER_NAME="$(docker ps | grep "seafile" | cut -d' ' -f1)"
-docker kill $SEAFILE_CONTAINER_NAME &>/dev/null
-docker rm $SEAFILE_CONTAINER_NAME &>/dev/null
-docker rmi seafile &>/dev/null
-docker build -t "seafile" "/tmp/docbox/seafile/"
-docker tag "seafile" $FIRST_MASTER_IP:5000/seafile
-docker push $FIRST_MASTER_IP:5000/seafile
-
-MYSQL_CONTAINER_NAME="$(docker ps | grep "mysql" | cut -d' ' -f1)"
-docker kill $MYSQL_CONTAINER_NAME &>/dev/null
-docker rm $MYSQL_CONTAINER_NAME &>/dev/null
-docker rmi mysql &>/dev/null
-docker build -t "mysql" "/tmp/docbox/mysql/"
-docker tag "mysql" $FIRST_MASTER_IP:5000/mysql
-docker push $FIRST_MASTER_IP:5000/mysql
