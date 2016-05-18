@@ -11,6 +11,8 @@ files:
     destination: /tmp/
   - source: /scripts/debug.sh
     destination: /home/ubuntu/
+  - source: /scripts/spark.sh
+    destination: /opt/
   - source: /packages/mesos-dns-v0.5.2-linux-amd64
     destination: /usr/bin/
 permissions:

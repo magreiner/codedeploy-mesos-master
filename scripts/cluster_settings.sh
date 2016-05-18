@@ -14,8 +14,17 @@ FIRST_MASTER_IP="$(echo "$MASTER_IPS" | head -n1)"
 # vault write secret/ACCESS_SERVER_IP value="$ACCESS_SERVER_IP"
 
 # Start Services
+# docker run -d \
+#   --name spark-master \
+#   -p 4040:4040 \
+#   -p 6066:6066 \
+#   -p 7077:7077 \
+#   -p 8081:8080 \
+#   -t spark \
+#   master
 
 # Start Prometheus
+
 
 curl -s -X DELETE "http://localhost:8080/v2/apps/spark-slave?force=true"; echo ""
 sed -i "s/MASTER/$FIRST_MASTER_IP:5000/g" /tmp/spark-slave.json
