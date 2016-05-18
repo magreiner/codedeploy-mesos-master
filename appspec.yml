@@ -52,7 +52,7 @@ hooks:
       timeout: 300
       runas: root
     - location: scripts/docker_prebuild.sh
-      timeout: 300
+      timeout: 900
       runas: root
     - location: scripts/cluster_settings.sh
       timeout: 300
