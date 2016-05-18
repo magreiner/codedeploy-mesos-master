@@ -40,18 +40,18 @@ stop on runlevel [!2345]
 
 respawn
 
-pre-start script
+# pre-start script
   # ensure nameservers are correct
   # service resolvconf restart
   # sleep 1
-end script
+# end script
 
 script
   ulimit -n 65536
   /usr/bin/mesos-dns -v 1 -config /etc/mesos-dns/config.json
 end script
 
-post-start script
+# post-start script
 #   service resolvconf stop
 #
 #   SEARCH_ORIG="\$(cat /etc/resolv.conf | grep search | cut -d' ' -f2)"
