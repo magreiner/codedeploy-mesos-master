@@ -17,6 +17,7 @@ FIRST_MASTER_IP="$(echo "$MASTER_IPS" | head -n1)"
 
 # Start Prometheus
 
+curl -s -X DELETE "http://localhost:8080/v2/apps/spark-slave?force=true"; echo ""
 sed -i "s/MASTER/$FIRST_MASTER_IP:5000/g" /tmp/spark-slave.json
 curl -X PUT http://localhost:8080/v2/apps -d @/tmp/spark-slave.json -H "Content-type: application/json"; echo ""
 
