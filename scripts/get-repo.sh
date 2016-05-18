@@ -50,3 +50,4 @@ EOF
   chmod 600 $HOME/.ssh/id_rsa.spark $HOME/.ssh/id_rsa.spark.pub
   git clone --depth=1 $DOCKER_IMAGE_GIT_REPO $DOCKER_IMAGE_BUILD_DIR
 fi
+chown -R ubuntu:ubuntu $DOCKER_IMAGE_BUILD_DIR
