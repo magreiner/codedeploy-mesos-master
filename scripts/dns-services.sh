@@ -70,3 +70,9 @@ EOF2
 
 stop mesos-dns
 start mesos-dns
+
+# test with
+# dig leader.mesos @localhost -p8600
+
+# Error if run as main dns service:
+# ERROR: 2016/05/18 09:43:15 exchanger.go:45: dial udp 127.0.0.1:53: socket: too many open files: exchanging &dns.Msg{MsgHdr:dns.MsgHdr{Id:0x195, Response:false, Opcode:0, Authoritative:false, Truncated:false, RecursionDesired:true, RecursionAvailable:false, Zero:false, AuthenticatedData:false, CheckingDisabled:false, Rcode:0}, Compress:false, Question:[]dns.Question{dns.Question{Name:"www.google.de.eu-central-1.compute.internal.", Qtype:0x1, Qclass:0x1}}, Answer:[]dns.RR{}, Ns:[]dns.RR{}, Extra:[]dns.RR{}} with "127.0.0.1:53"
