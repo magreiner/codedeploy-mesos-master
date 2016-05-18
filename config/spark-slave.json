@@ -1,7 +1,7 @@
 [
 {
   "id": "/spark-slave",
-  "cmd": "/opt/spark.sh slave",
+  "cmd": "/bin/bash /opt/spark.sh slave",
   "cpus": 1,
   "mem": 1000,
   "disk": 0,
