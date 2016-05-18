@@ -53,10 +53,15 @@ end script
 post-start script
   service resolvconf stop
 
-  SEARCH_ORIG="$(cat /etc/resolv.conf | grep search | cut -d' ' -f2)"
+  SEARCH_ORIG="\$(cat /etc/resolv.conf | grep search | cut -d' ' -f2)"
+  while [ -z "\$SEARCH_ORIG" ]; do
+    sleep 1
+    echo "Waiting for original domain names. (DEBUG: SEARCH_ORIG=\$SEARCH_ORIG)"
+    SEARCH_ORIG="\$(cat /etc/resolv.conf | grep search | cut -d' ' -f2)"
+  done
   cat > /etc/resolv.conf << EOF
 nameserver 127.0.0.1
-search $SEARCH_ORIG
+search \$SEARCH_ORIG
 EOF
 end script
 
