@@ -14,7 +14,7 @@ cat > /etc/mesos-dns/config.json << EOF
   "refreshSeconds": 60,
   "ttl": 60,
   "domain": "mesos",
-  "port": 53,
+  "port": 8600,
   "resolvers": ["$(cat /etc/resolv.conf | grep nameserver | cut -d' ' -f2)"],
   "timeout": 5,
   "httpon": true,
@@ -42,28 +42,29 @@ respawn
 
 pre-start script
   # ensure nameservers are correct
-  service resolvconf restart
-  sleep 1
+  # service resolvconf restart
+  # sleep 1
 end script
 
 script
+  ulimit -n 65536
   /usr/bin/mesos-dns -v 1 -config /etc/mesos-dns/config.json
 end script
 
 post-start script
-  service resolvconf stop
-
-  SEARCH_ORIG="\$(cat /etc/resolv.conf | grep search | cut -d' ' -f2)"
-  while [ -z "\$SEARCH_ORIG" ]; do
-    sleep 1
-    echo "Waiting for original domain names. (DEBUG: SEARCH_ORIG=\$SEARCH_ORIG)"
-    SEARCH_ORIG="\$(cat /etc/resolv.conf | grep search | cut -d' ' -f2)"
-  done
-  cat > /etc/resolv.conf << EOF
-nameserver 127.0.0.1
-search \$SEARCH_ORIG
-EOF
-end script
+#   service resolvconf stop
+#
+#   SEARCH_ORIG="\$(cat /etc/resolv.conf | grep search | cut -d' ' -f2)"
+#   while [ -z "\$SEARCH_ORIG" ]; do
+#     sleep 1
+#     echo "Waiting for original domain names. (DEBUG: SEARCH_ORIG=\$SEARCH_ORIG)"
+#     SEARCH_ORIG="\$(cat /etc/resolv.conf | grep search | cut -d' ' -f2)"
+#   done
+#   cat > /etc/resolv.conf << EOF
+# nameserver 127.0.0.1
+# search \$SEARCH_ORIG
+# EOF
+# end script
 
 EOF2
 
