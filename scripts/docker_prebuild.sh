@@ -20,7 +20,7 @@ docker run -d \
   --name registry \
   -p 5000:5000 \
   --restart=always \
-  -v /opt/docker/registry:/var/lib/registry \
+  -v /mnt/docker-registry:/var/lib/registry \
   -t registry:latest
 
 docker kill spark-master > /dev/null 2>&1
