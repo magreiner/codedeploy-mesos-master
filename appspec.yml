@@ -3,6 +3,8 @@ os: linux
 files:
   - source: /config/basic.json
     destination: /tmp/
+  - source: /config/spark-slave.json
+    destination: /tmp/
   - source: /config/prometheus.yml
     destination: /tmp/
   - source: /packages/vault_0.5.2_linux_amd64.zip
@@ -13,6 +15,10 @@ files:
     destination: /usr/bin/
 permissions:
   - object: /tmp/basic.json
+    owner: ubuntu
+    group: users
+    mode: 644
+  - object: /tmp/spark-slave.json
     owner: ubuntu
     group: users
     mode: 644

@@ -14,8 +14,21 @@ FIRST_MASTER_IP="$(echo "$MASTER_IPS" | head -n1)"
 # vault write secret/ACCESS_SERVER_IP value="$ACCESS_SERVER_IP"
 
 # Start Services
-sed -i "s/MASTER/$FIRST_MASTER_IP:5000/g" /tmp/basic.json
-# curl -X PUT http://localhost:8080/v2/apps -d @/tmp/basic.json -H "Content-type: application/json" &> /tmp/basic.log
+
+# Start Prometheus
+docker kill spark-master > /dev/null 2>&1
+docker rm spark-master > /dev/null 2>&1
+docker run -d \
+  --name spark-master \
+  -p 4040:4040 \
+  -p 6066:6066 \
+  -p 7077:7077 \
+  -p 8081:8080 \
+  -t spark \
+  master
+
+sed -i "s/MASTER/$FIRST_MASTER_IP:5000/g" /tmp/spark-slave.json
+curl -X PUT http://localhost:8080/v2/apps -d @/tmp/spark-slave.json -H "Content-type: application/json"; echo ""
 
 
 # # Start Prometheus
