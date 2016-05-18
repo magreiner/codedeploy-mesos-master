@@ -62,5 +62,5 @@ end script
 
 EOF2
 
+stop mesos-dns
 start mesos-dns
-true
