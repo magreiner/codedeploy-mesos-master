@@ -9,10 +9,13 @@ sbt assembly; stty erase ^H
 sbt assembly && spark-submit target/scala-2.10/TwitterStreamProcessing-assembly-1.0.jar; stty erase ^H
 EOF
 
+export S3_BUCKET="filestore-eu-central-1"
+export S3_BACKUP_DIR=$S3_BUCKET/ec2-init
+
   cat >> /home/ubuntu/.bashrc << EOF
 export HOME_BACKUP_FILES='.m2 .ivy2 .sbt git'
-export S3_BUCKET="filestore-eu-central-1"
-export S3_BACKUP_DIR=\$S3_BUCKET/ec2-init
+export S3_BUCKET="$S3_BUCKET"
+export S3_BACKUP_DIR="$S3_BACKUP_DIR"
 
 # Add frequently used programs to env PATH
 export PATH=\$PATH:/home/ubuntu/git/scripts/aws
@@ -21,7 +24,7 @@ export PATH=\$PATH:/home/ubuntu/git/scripts/git
 export PATH=\$PATH:/opt/spark/bin
 EOF
 
-  chown ubuntu:ubuntu /home/ubuntu/.bash_history /home/ubuntu/.bashrc
+
   source /home/ubuntu/.bashrc
 
   aws s3 cp --region "eu-central-1" s3://$S3_BACKUP_DIR/home.tar.bz2 /tmp/ && \
@@ -42,6 +45,7 @@ EOF
   git clone git@github.com:magreiner/codedeploy-mesos-master.git cluster/codedeploy-mesos-master
   git clone git@bitbucket.org:m_greiner/docbox.git cluster/docbox
 
+  chown -R /home/ubuntu/cluster ubuntu:ubuntu /home/ubuntu/.bash_history /home/ubuntu/.bashrc
   # install debug tools
   sudo apt-get install -yq firefox chromium-browser flashplugin-installer
 fi
