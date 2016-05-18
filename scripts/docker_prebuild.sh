@@ -1,6 +1,5 @@
 #!/bin/bash
 
-MIN_MASTER_INSTANCES=1
 MASTER_INSTANCE_TAGNAME="AS_Master"
 
 LOCAL_IP_ADDRESS="$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)"
@@ -20,7 +19,7 @@ docker rm registry > /dev/null 2>&1
 docker run -d \
   --name registry \
   -p 5000:5000 \
-  --restart=always
+  --restart=always \
   -v /opt/docker/registry:/var/lib/registry \
   -t registry:latest
 
