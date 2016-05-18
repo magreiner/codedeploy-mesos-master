@@ -1,4 +1,11 @@
 #!/bin/bash
+
+# master or slave
+NODE_TYPE="$1"
+
+# quiet to prevent tail -f on log
+MODE="$2"
+
 export S3_BUCKET="filestore-eu-central-1"
 export AWS_REGION="eu-central-1"
 export SPARK_VERSION="1.6.1"
@@ -17,6 +24,7 @@ apt-get install -qy curl \
                     nano
 
 mkdir -p /usr/java
+rm -rf /usr/java/default &>/dev/null
 ln -s /usr/lib/jvm/java-8-oracle/ /usr/java/default
 echo JAVA_HOME=/usr/java/default >> /etc/environment
 echo PATH=$JAVA_HOME/bin:$PATH >> /etc/environment
@@ -26,14 +34,16 @@ export JAVA_HOME=/usr/java/default
 
 pip install awscli
 
-rm -rf "$SPARK_HOME" &>/dev/null
-mkdir -p "$SPARK_HOME"
-/usr/local/bin/aws s3 cp --region $AWS_REGION "s3://$S3_BUCKET/clusterData/spark-$SPARK_VERSION-bin-hadoop2.6.tgz" - |\
-  tar -C "$SPARK_HOME"  --strip-components=1 -zxf -
-
-# master or slave
-NODE_TYPE="$1"
-
+# only re-download spark if its not already running
+# if its there but not running cleanup and replace it with newer version
+if [ "1" -ge "$(ps -aux | grep spark.deploy.worker | wc -l)" ]; then
+  echo hi
+fi
+  rm -rf "$SPARK_HOME" &>/dev/null
+  mkdir -p "$SPARK_HOME"
+  /usr/local/bin/aws s3 cp --region $AWS_REGION "s3://$S3_BUCKET/clusterData/spark-$SPARK_VERSION-bin-hadoop2.6.tgz" - |\
+    tar -C "$SPARK_HOME"  --strip-components=1 -zxf -
+fi
 export PATH=$JAVA_HOME/bin:$PATH
 
 cat >> "$SPARK_HOME/conf/spark-env.sh" << EOF
@@ -101,5 +111,7 @@ else
 
   RUN_INFO=$($SPARK_HOME/sbin/start-slave.sh spark://$FIRST_MASTER_IP:7077)
 fi
-LOGFILE=$(echo $R | grep $SPARK_HOME | cut -d' ' -f5)
-tail -F $LOGFILE
+if [ "$MODE" != "quiet" ]; then
+  LOGFILE=$(echo $RUN_INFO | grep $SPARK_HOME | cut -d' ' -f5)
+  tail -F -n +1 $LOGFILE
+fi

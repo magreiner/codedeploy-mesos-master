@@ -25,11 +25,14 @@ FIRST_MASTER_IP="$(echo "$MASTER_IPS" | head -n1)"
 
 # Start Prometheus
 /bin/bash /opt/spark/sbin/stop-master.sh
-/bin/bash /opt/spark.sh master
+/bin/bash /opt/spark.sh master quiet
 
 curl -s -X DELETE "http://localhost:8080/v2/apps/spark-slave?force=true"; echo ""
 sed -i "s/MASTER/$FIRST_MASTER_IP:5000/g" /tmp/spark-slave.json
 curl -X PUT http://localhost:8080/v2/apps -d @/tmp/spark-slave.json -H "Content-type: application/json"; echo ""
+
+# revert old homedir
+bash /home/ubuntu/debug.sh
 
 # # Start Prometheus
 # docker kill prometheus &>/dev/null
