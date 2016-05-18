@@ -25,7 +25,7 @@ FIRST_MASTER_IP="$(echo "$MASTER_IPS" | head -n1)"
 
 # Start Prometheus
 /bin/bash /opt/spark/sbin/stop-master.sh
-/bin/bash /opt/spark.sh master quiet &> /tmp/spark-master-start.log
+/bin/bash /opt/spark.sh master quiet &> /tmp/spark-master-start.log &
 
 curl -s -X DELETE "http://localhost:8080/v2/apps/spark-slave?force=true"; echo ""
 sed -i "s/MASTER/$FIRST_MASTER_IP:5000/g" /tmp/spark-slave.json
