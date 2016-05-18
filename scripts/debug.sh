@@ -12,14 +12,17 @@ EOF
   cat >> /home/ubuntu/.bashrc << EOF
 export HOME_BACKUP_FILES='.m2 .ivy2 .sbt git'
 export S3_BUCKET="filestore-eu-central-1"
-export S3_BACKUP_DIR=$S3_BUCKET/ec2-init
-EOF
+export S3_BACKUP_DIR=\$S3_BUCKET/ec2-init
+
 # Add frequently used programs to env PATH
 export PATH=\$PATH:/home/ubuntu/git/scripts/aws
 export PATH=\$PATH:/home/ubuntu/git/scripts/aws/Cluster
 export PATH=\$PATH:/home/ubuntu/git/scripts/git
 export PATH=\$PATH:/opt/spark/bin
 EOF
+
+  chown ubuntu:ubuntu /home/ubuntu/.bash_history /home/ubuntu/.bashrc
+  source /home/ubuntu/.bashrc
 
   aws s3 cp --region "eu-central-1" s3://$S3_BACKUP_DIR/home.tar.bz2 /tmp/ && \
   sudo su -s /bin/bash ubuntu -c "tar -C /home/ubuntu/ -xpPf /tmp/home.tar.bz2" && \
