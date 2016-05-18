@@ -16,7 +16,7 @@
       "mode": "RO"
     }],
     "docker": {
-      "image": "MASTER:5000/spark:latest",
+      "image": "MASTER/spark:latest",
       "network": "BRIDGE",
       "portMappings": [{
         "containerPort": 8080,
