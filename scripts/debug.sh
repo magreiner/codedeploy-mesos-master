@@ -23,7 +23,6 @@ export S3_BACKUP_DIR="$S3_BACKUP_DIR"
 export PATH=\$PATH:/home/ubuntu/git/scripts/aws
 export PATH=\$PATH:/home/ubuntu/git/scripts/aws/Cluster
 export PATH=\$PATH:/home/ubuntu/git/scripts/git
-export PATH=\$PATH:/opt/spark/bin
 EOF
 
   source /home/ubuntu/.bashrc

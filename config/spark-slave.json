@@ -5,7 +5,10 @@
   "cpus": 1,
   "mem": 1000,
   "disk": 0,
-  "instances": 3,
+  "instances": 2,
+  "constraints": [
+      ["hostname", "UNIQUE"]
+  ],
   "env": {},
   "labels": {},
   "healthChecks": []
