@@ -9,6 +9,8 @@ sbt assembly; stty erase ^H
 sbt assembly && spark-submit target/scala-2.10/TwitterStreamProcessing-assembly-1.0.jar; stty erase ^H
 EOF
 
+ln -s /home/ubuntu/git/uniarbeiten/SparkTwitter/ /home/ubuntu/twitter
+
 export S3_BUCKET="filestore-eu-central-1"
 export S3_BACKUP_DIR=$S3_BUCKET/ec2-init
 
@@ -23,7 +25,6 @@ export PATH=\$PATH:/home/ubuntu/git/scripts/aws/Cluster
 export PATH=\$PATH:/home/ubuntu/git/scripts/git
 export PATH=\$PATH:/opt/spark/bin
 EOF
-
 
   source /home/ubuntu/.bashrc
 
