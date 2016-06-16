@@ -3,8 +3,8 @@
   "id": "/spark-slave",
   "cmd": "/bin/bash /opt/spark.sh slave",
   "cpus": 1,
-  "mem": 1000,
-  "disk": 0,
+  "mem": 6000,
+  "disk": 200,
   "instances": 2,
   "constraints": [
       ["hostname", "UNIQUE"]
