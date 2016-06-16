@@ -44,9 +44,6 @@ hooks:
     - location: scripts/mesos_master_install.sh
       timeout: 300
       runas: root
-    - location: scripts/vault.sh
-      timeout: 300
-      runas: root
     - location: scripts/dns-services.sh
       timeout: 300
       runas: root
