@@ -47,12 +47,6 @@ hooks:
     - location: scripts/dns-services.sh
       timeout: 300
       runas: root
-    - location: scripts/get-repo.sh
-      timeout: 300
-      runas: root
-    - location: scripts/docker_prebuild.sh
-      timeout: 900
-      runas: root
     - location: scripts/cluster_settings.sh
       timeout: 300
       runas: root
