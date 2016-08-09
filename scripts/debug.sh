@@ -15,7 +15,7 @@ export S3_BUCKET="filestore-eu-central-1"
 export S3_BACKUP_DIR=$S3_BUCKET/ec2-init
 
   cat >> /home/ubuntu/.bashrc << EOF
-export HOME_DIR="$HOME"
+export HOME_DIR="/home/ubuntu"
 export HOME_BACKUP_FILES='.m2 .ivy2 .sbt git'
 export S3_BUCKET="$S3_BUCKET"
 export S3_BACKUP_DIR="$S3_BACKUP_DIR"
