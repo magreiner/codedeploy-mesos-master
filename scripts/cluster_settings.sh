@@ -23,7 +23,16 @@ FIRST_MASTER_IP="$(echo "$MASTER_IPS" | head -n1)"
 #   -t spark \
 #   master
 
-# Start Prometheus
+
+# wait for the first master to be ready (=marathon running)
+RESULT="$(curl -s $FIRST_MASTER_IP:8080/ping)"
+while [[ "$RESULT" !=  "pong" ]]; do
+  sleep 2
+  echo "Waiting for marathon to be ready for initial deployment."
+  RESULT="$(curl -s $FIRST_MASTER_IP:8080/ping)"
+done
+
+# Start Spark-Master
 /bin/bash /opt/spark/sbin/stop-master.sh
 /bin/bash /opt/spark.sh master quiet &> /tmp/spark-master-start.log &
 
